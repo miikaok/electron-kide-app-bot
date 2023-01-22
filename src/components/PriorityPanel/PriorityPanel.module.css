@@ -1,0 +1,49 @@
+.PriorityPanel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.PriorityPanel > h3 {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.PriorityPanel > span {
+  margin-bottom: 16px;
+}
+
+.PriorityItemList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.PriorityItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  gap: 8px;
+}
+
+.PriorityItem > *:nth-child(2) {
+  flex: 1;
+}
+
+.AdditionalPrioritySettings > h3 {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.BuyCountContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.BuyCountContainer > h3 {
+  margin-top: 8px;
+  margin-bottom: 0;
+}

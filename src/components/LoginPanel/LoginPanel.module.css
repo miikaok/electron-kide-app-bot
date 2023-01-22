@@ -32,3 +32,9 @@
 .ErrorLabel {
   color: red;
 }
+
+.ButtonGroup {
+  display: inline-flex;
+  flex-direction: row;
+  gap: 10px;
+}

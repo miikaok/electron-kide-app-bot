@@ -1,0 +1,17 @@
+.SettingsPanel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.SettingsPanel > h3 {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.SettingsRow {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 4px;
+}

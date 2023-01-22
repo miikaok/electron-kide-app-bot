@@ -1,12 +1,13 @@
-@import '~normalize.css';
-@import '~@blueprintjs/core/lib/css/blueprint.css';
-@import '~@blueprintjs/icons/lib/css/blueprint-icons.css';
+/** @format */
+
+@import "~normalize.css";
+@import "~@blueprintjs/core/lib/css/blueprint.css";
+@import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
 
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: #252a31;
 }
 
 html {

@@ -1,0 +1,47 @@
+/** @format */
+
+.AccountPanelContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.AccountPanelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.AccountPanelHeader > *:nth-child(1) {
+  flex: 1;
+}
+
+.AddAccountButton {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.AddAccountButton > * {
+  height: 100%;
+}
+
+.UserCard {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+
+.UserCard > *:nth-child(2) {
+  flex: 1;
+}
+
+.LogoutButton {
+  cursor: pointer;
+}
