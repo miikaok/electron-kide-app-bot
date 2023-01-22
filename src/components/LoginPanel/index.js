@@ -1,3 +1,3 @@
-import LoginPanel from './LoginPanel'
+import LoginPanel from "./LoginPanel";
 
-export default LoginPanel
+export default LoginPanel;

@@ -1,52 +1,54 @@
-import React, { useState, useContext } from 'react'
-import styles from './EventPreview.module.css'
+import React, { useState, useContext } from "react";
+import styles from "./EventPreview.module.css";
 
-import axios from 'axios'
-import { AppContext } from '../../App.js'
-import { Spinner } from '@blueprintjs/core'
+// Axios
+import axios from "axios";
+
+// Context
+import { AppContext } from "../../App.js";
+
+// Components
+import { Spinner } from "@blueprintjs/core";
 
 const EventPreview = () => {
-  const [events, setEvents] = useState(null)
-  const [loading, setLoading] = useState(false)
-  const [search, setSearch] = useState('')
-  const context = useContext(AppContext)
+  const [events, setEvents] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState("");
+  const context = useContext(AppContext);
 
-  const fetchEvents = async search => {
+  const fetchEvents = async (search) => {
     try {
-      const response = await axios(
-        `https://api.kide.app/api/products?searchText=${search}`
-      )
-      return response.data
+      const response = await axios(`https://api.kide.app/api/products?searchText=${search}`);
+      return response.data;
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-    return null
-  }
+    return null;
+  };
 
-  const handleEventIDChange = async e => {
-    if (e.keyCode !== 13) return
-    setLoading(true)
+  const handleEventIdChange = async (e) => {
+    if (e.keyCode !== 13) return;
+    setLoading(true);
 
-    const events = await fetchEvents(search)
-    setLoading(false)
+    const events = await fetchEvents(search);
+    setLoading(false);
     if (events == null) {
-      return setEvents([])
+      return setEvents([]);
     }
-    setEvents(events.model)
-  }
+    setEvents(events.model);
+  };
 
-  const handleSearchChange = e => {
-    setSearch(e.target.value)
-  }
+  const handleSearchChange = (e) => {
+    setSearch(e.target.value);
+  };
 
-  const handleMissingImage = e => {
-    e.target.src = './no-image.jpg'
-  }
+  const handleMissingImage = (e) => {
+    e.target.src = "./no-image.jpg";
+  };
 
-  const handleSelectEvent = eventID => {
-    const oldValue = context.value
-    context.setValue({ ...oldValue, eventID })
-  }
+  const handleSelectEvent = (eventId) => {
+    context.setStore((store) => ({ ...store, eventId }));
+  };
 
   return (
     <div className={styles.EventPreview}>
@@ -57,7 +59,7 @@ const EventPreview = () => {
           className="bp4-input"
           placeholder="Search for events..."
           value={search}
-          onKeyDown={handleEventIDChange}
+          onKeyDown={handleEventIdChange}
           onChange={handleSearchChange}
         />
       </div>
@@ -66,14 +68,12 @@ const EventPreview = () => {
           {events?.length === 0 ? (
             <div className={styles.NoResultContainer}>
               <h4 className="bp4-heading">No matching content found.</h4>
-              <label className="bp4-label">
-                Try a different keyword or check your spelling
-              </label>
+              <label className="bp4-label">Try a different keyword or check your spelling</label>
             </div>
           ) : (
             <div className={styles.MediaResultContainer}>
               {events != null &&
-                events.map(event => {
+                events.map((event) => {
                   return (
                     <div
                       key={event.id}
@@ -88,18 +88,14 @@ const EventPreview = () => {
                       />
                       <div className={styles.ProductInfo}>
                         <h5 className="bp4-heading">{event.name}</h5>
+                        <span className="bp4-text-small">City: {event.city ?? "Unknown"}</span>
+                        <span className="bp4-text-small">Place: {event.place ?? "Unknown"}</span>
                         <span className="bp4-text-small">
-                          City: {event.city ?? 'Unknown'}
-                        </span>
-                        <span className="bp4-text-small">
-                          Place: {event.place ?? 'Unknown'}
-                        </span>
-                        <span className="bp4-text-small">
-                          Availability: {event.availability ?? 'Unknown'}
+                          Availability: {event.availability ?? "Unknown"}
                         </span>
                       </div>
                     </div>
-                  )
+                  );
                 })}
             </div>
           )}
@@ -110,7 +106,7 @@ const EventPreview = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default EventPreview
+export default EventPreview;

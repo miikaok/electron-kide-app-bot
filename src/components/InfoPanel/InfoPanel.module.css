@@ -1,0 +1,27 @@
+.EventInfoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  margin-bottom: 8px;
+}
+
+.EventInfoContainer > h3 {
+  margin-top: 0;
+  margin-bottom: 4px;
+}
+
+.OnSaleLabel {
+  color: green;
+}
+
+.OffSaleLabel {
+  color: orangered;
+}
+
+.LoadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}

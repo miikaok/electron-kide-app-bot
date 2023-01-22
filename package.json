@@ -1,13 +1,15 @@
 {
-  "name": "electron-react",
-  "version": "0.1.0",
+  "name": "electron-kide-app-bot",
+  "version": "0.2.0",
+  "description": "Steals event tickets from Kide.app",
+  "author": "Miika Oja-Kaukola",
   "private": true,
   "dependencies": {
     "@blueprintjs/core": "^4.14.1",
     "@electron/remote": "^2.0.9",
     "axios": "^1.2.2",
-    "electron-is-dev": "^2.0.0",
     "electron-store": "^8.1.0",
+    "eslint-config-prettier": "^8.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
@@ -17,8 +19,8 @@
   "main": "public/main.js",
   "homepage": "./",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
     "electron:serve": "concurrently -k \"cross-env BROWSER=none yarn start\" \"yarn electron:start\"",
     "electron:build": "yarn build && electron-builder -c.extraMetadata.main=build/main.js",
     "electron:preview": "cross-env BROWSER=none yarn build && electron .",
@@ -61,6 +63,8 @@
     "electron": "^22.0.2",
     "electron-builder": "^23.6.0",
     "prettier": "^2.2.1",
-    "wait-on": "^7.0.1"
+    "react-app-rewired": "^2.2.1",
+    "wait-on": "^7.0.1",
+    "worker-loader": "^3.0.8"
   }
 }

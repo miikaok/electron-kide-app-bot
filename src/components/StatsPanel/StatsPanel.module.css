@@ -1,0 +1,12 @@
+.StatsContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.SuccessSpan {
+  color: green;
+}
+
+.ErrorSpan {
+  color: red;
+}
