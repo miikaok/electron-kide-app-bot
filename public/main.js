@@ -10,6 +10,9 @@ function createWindow() {
     height: 450,
     resizable: false,
     autoHideMenuBar: true,
+    webPreferences: {
+      nodeIntegrationInWorker: true
+    }
   });
 
   win.loadURL(`file://${path.join(__dirname, "../build/index.html")}`);

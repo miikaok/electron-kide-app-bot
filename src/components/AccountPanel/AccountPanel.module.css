@@ -42,6 +42,14 @@
   flex: 1;
 }
 
+.AccountList {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 260px;
+  overflow-y: auto;
+}
+
 .LogoutButton {
   cursor: pointer;
 }

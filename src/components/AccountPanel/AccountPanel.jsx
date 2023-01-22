@@ -11,7 +11,8 @@ const AccountPanel = () => {
   const context = useContext(AppContext);
   const { users } = context.store;
 
-  const handleLogout = (email) => {
+  const handleLogout = (event, email) => {
+    event.stopPropagation();
     context.setStore((store) => ({
       ...store,
       users: users.filter((user) => user.email !== email),
@@ -44,24 +45,33 @@ const AccountPanel = () => {
             Add New Account
           </div>
         </div>
-        {users.map((user, index) => {
-          const username = user.email.split("@")[0];
-          return (
-            <Card key={index} interactive onClick={() => handleAccountSelect(user.token, user.expires)}>
-              <div className={styles.UserCard}>
-                <div>
-                  <Icon icon="user" />
+        <div className={styles.AccountList}>
+          {users.map((user, index) => {
+            const username = user.email.split("@")[0];
+            return (
+              <Card
+                key={index}
+                interactive
+                onClick={() => handleAccountSelect(user.token, user.expires)}
+              >
+                <div className={styles.UserCard}>
+                  <div>
+                    <Icon icon="user" />
+                  </div>
+                  <div>
+                    <span>Username: {username}</span>
+                  </div>
+                  <div
+                    onClick={(event) => handleLogout(event, user.email)}
+                    className={styles.LogoutButton}
+                  >
+                    <Icon icon="remove" color="red" />
+                  </div>
                 </div>
-                <div>
-                  <span>Username: {username}</span>
-                </div>
-                <div onClick={() => handleLogout(user.email)} className={styles.LogoutButton}>
-                  <Icon icon="remove" color="red" />
-                </div>
-              </div>
-            </Card>
-          );
-        })}
+              </Card>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

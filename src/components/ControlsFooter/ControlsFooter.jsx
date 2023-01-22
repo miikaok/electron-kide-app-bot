@@ -9,11 +9,8 @@ import { AppContext } from "../../App";
 // Components
 import { Button } from "@blueprintjs/core";
 
-// Web Worker
-import WebWorker from "react-web-workers";
-
 // Logic
-import threadWorker from "../../logic/threadWorker.js";
+import threadWorker from "../../logic/thread.worker.js";
 
 const ControlsFooter = () => {
   const context = useContext(AppContext);
@@ -77,7 +74,7 @@ const ControlsFooter = () => {
     // Create new thread for each threadCount
     for (let i = 0; i < context.store?.threadCount; i++) {
       // Create new thread
-      const [thread] = WebWorker([threadWorker]);
+      const thread = new threadWorker();
 
       // Post settings for each thread
       thread.postMessage({

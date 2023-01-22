@@ -5,7 +5,7 @@ import axios from "axios";
 import { Button } from "@blueprintjs/core";
 import { AppContext } from "../../App";
 
-const LoginPanel = (allowClose) => {
+const LoginPanel = ({ allowClose }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -49,9 +49,11 @@ const LoginPanel = (allowClose) => {
 
       if (!saveUser(email, token, expires)) {
         setError("User already exists, please try again.");
-        setLoading(false);
-        setPassword("");
       }
+      setLoading(false);
+      setPassword("");
+
+      if (allowClose) handleExit();
     } catch (error) {
       setError("Invalid credentials, please try again.");
       setLoading(false);
