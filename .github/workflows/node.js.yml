@@ -21,19 +21,29 @@ jobs:
       run: npm install --legacy-peer-deps
     - name: Build
       run: npm run build
-    - name: upload build files
+    - name: Upload Build Files
       uses: actions/upload-artifact@v2
       with:
         name: build
         path: build
+    - name: Check if gh-pages branch exists
+      run: |
+        git fetch
+        if git rev-parse --verify origin/gh-pages > /dev/null; then
+          echo "gh-pages branch exists"
+        else
+          git branch gh-pages
+          git push -u origin gh-pages
+          echo "gh-pages branch created"
+        fi
     - name: Deploy
       run: |
         git config user.name "GitHub Actions"
         git config user.email "github-actions@users.noreply.github.com"
         git remote set-url origin git@github.com:miikaok/electron-kide-app-bot.git
         git fetch
-        git branch -D origin/gh-pages
-        git checkout -b origin/gh-pages
+        git branch -D gh-pages
+        git checkout -b gh-pages
         git reset --hard origin/gh-pages
         git add -A
         git commit -m "Deploy to GitHub Pages"
