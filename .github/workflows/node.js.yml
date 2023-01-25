@@ -32,8 +32,8 @@ jobs:
         git config user.email "github-actions@users.noreply.github.com"
         git remote set-url origin git@github.com:miikaok/electron-kide-app-bot.git
         git fetch
-        git branch -D gh-pages
-        git checkout -b gh-pages
+        git branch -D origin/gh-pages
+        git checkout -b origin/gh-pages
         git reset --hard origin/gh-pages
         git add -A
         git commit -m "Deploy to GitHub Pages"
