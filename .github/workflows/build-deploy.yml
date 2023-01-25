@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: CI/CD
 
 on:
   push:
@@ -11,6 +11,13 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+      
+    - name: Create and track gh-pages branch
+      run: |
+        git branch -D gh-pages
+        git push origin :gh-pages
+        git checkout -b gh-pages
+        git push -u origin gh-pages
 
     - name: Install dependencies
       run: yarn
@@ -32,3 +39,6 @@ jobs:
       run: npx gh-pages -d build
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        
+    - name: Checkout main branch
+      run: git checkout main
