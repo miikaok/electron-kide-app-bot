@@ -18,18 +18,23 @@ jobs:
       with:
         node-version: 12
     - name: Install dependencies
-      run: npm ci --legacy-peer-deps
+      run: npm ci
     - name: Build
       run: npm run build
-    - name: Setup SSH
-      uses: actions/setup-ssh@v1
+    - name: upload build files
+      uses: actions/upload-artifact@v2
       with:
-        ssh_key: ${{ secrets.SSH_PRIVATE_KEY }}
+        name: build
+        path: build
     - name: Deploy
       run: |
         git config user.name "GitHub Actions"
         git config user.email "github-actions@users.noreply.github.com"
         git remote set-url origin git@github.com:miikaok/electron-kide-app-bot.git
+        git fetch
+        git branch -D gh-pages
+        git checkout -b gh-pages
+        git reset --hard origin/gh-pages
         git add -A
         git commit -m "Deploy to GitHub Pages"
-        git push origin HEAD:gh-pages
+        git push origin gh-pages
