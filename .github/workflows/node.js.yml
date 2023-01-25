@@ -11,6 +11,6 @@ jobs:
       uses: actions/checkout@v2
     - name: Build and deploy
       run: |
-        npm ci
+        npm install
         npm run build
         npx gh-pages -d build
