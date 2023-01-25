@@ -9,6 +9,9 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+      with:
+        ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+        repository: git@github.com:miikaok/electron-kide-app-bot.git
     - name: Build and deploy
       run: |
         npm install --legacy-peer-deps
