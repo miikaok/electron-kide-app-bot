@@ -18,6 +18,14 @@ jobs:
         git push origin :gh-pages
         git checkout -b gh-pages
         git push -u origin gh-pages
+        
+    - name: Restore node_modules from cache
+      uses: actions/cache@v2
+      with:
+        path: |
+          node_modules
+          */*/node_modules
+        key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
     - name: Install dependencies
       run: yarn
