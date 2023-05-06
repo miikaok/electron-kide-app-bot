@@ -14,9 +14,9 @@ export const AppContext = createContext();
 export const storeConfig = {
   eventId: null,
   users: [],
-  threadCount: 35,
-  threadDelay: 975,
-  requestTimeout: 2000,
+  threadCount: 18,
+  threadDelay: 1350,
+  requestTimeout: 4500,
   strictPriority: false,
   useCustomCount: false,
   autoStop: false,
