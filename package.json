@@ -1,20 +1,24 @@
 {
   "name": "electron-kide-app-bot",
-  "version": "0.2.0",
+  "version": "2.3.0",
   "description": "Steals event tickets from Kide.app",
   "author": "Miika Oja-Kaukola",
   "private": true,
   "dependencies": {
-    "@blueprintjs/core": "^4.14.1",
+    "@blueprintjs/core": "^4.18.0",
     "@electron/remote": "^2.0.9",
-    "axios": "^1.2.2",
+    "axios": "^1.4.0",
     "electron-store": "^8.1.0",
-    "eslint-config-prettier": "^8.6.0",
+    "eslint-config-prettier": "^8.8.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "react-web-workers": "^1.0.1",
-    "web-vitals": "^3.1.1"
+    "web-vitals": "^3.3.1"
+  },
+  "resolutions": {
+    "nth-check": ">=2.0.1",
+    "minimatch": ">=3.0.5"
   },
   "main": "public/main.js",
   "homepage": "./",
@@ -58,11 +62,11 @@
     ]
   },
   "devDependencies": {
-    "concurrently": "^7.6.0",
+    "concurrently": "^8.0.1",
     "cross-env": "^7.0.3",
-    "electron": "^22.0.2",
+    "electron": "^24.2.0",
     "electron-builder": "^23.6.0",
-    "prettier": "^2.2.1",
+    "prettier": "^2.8.8",
     "react-app-rewired": "^2.2.1",
     "wait-on": "^7.0.1",
     "worker-loader": "^3.0.8"

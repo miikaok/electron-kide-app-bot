@@ -120,9 +120,9 @@ const PriorityPanel = () => {
     <Card elevation={Elevation.TWO} className={styles.PriorityPanel}>
       <h3>Ticket Settings</h3>
       <span>
-        You can prioritize certain tickets by entering priority items. Tickets gets prioritized by the
-        variant name. Priority items are not case sensitive. Max ammount of priority items is 5. Do not
-        leave any priority items empty.
+        You can prioritize certain tickets by entering priority items. Tickets are prioritized by the
+        variant name. Priority items are not case-sensitive. The maximum number of priority items is 5.
+        Do not leave empty priority items.
       </span>
       <div className={styles.PriorityItemList}>
         {priorityItems?.length > 0 &&
@@ -179,8 +179,8 @@ const PriorityPanel = () => {
         <div className={styles.BuyCountContainer}>
           <h3>Ticket Buy Count</h3>
           <span>
-            Specify a number of tickets to buy. If number is greater than the maximium reservable item
-            quantity, then this value is overriden.
+            Specify the number of tickets to purchase. If the number is greater than the maximum number
+            of tickets that can be then that value will be overridden.
           </span>
           <Switch
             checked={context.store.useCustomCount}

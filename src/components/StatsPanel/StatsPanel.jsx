@@ -8,6 +8,12 @@ const StatsPanel = () => {
   const context = useContext(AppContext);
   const { stats } = context.temporaryStore;
 
+  const calculateRate = (a, b) => {
+    const rate = (1 - b / a) * 100;
+    if (isNaN(rate)) return <span>0.00%</span>;
+    return <span style={{ color: rate > 75 ? "green" : "red" }}>{rate.toFixed(2) + "%"}</span>;
+  };
+
   return (
     <div className={styles.StatsPanel}>
       <h2>Session Stats</h2>
@@ -20,7 +26,10 @@ const StatsPanel = () => {
           Reserve Requests: <span className={styles.SuccessSpan}>{stats.buy_success} success</span> /{" "}
           <span className={styles.ErrorSpan}>{stats.buy_failed} failed</span>
         </span>
-        <span>Total Reserve Attempts: {stats.buy_attempts}</span>
+        <span>
+          Total Reserve Attempts: {stats.buy_attempts} (Rate:{" "}
+          {calculateRate(stats.request_success, stats.request_error)})
+        </span>
         <h2>Skip Stats</h2>
         <span>Total Skips: {stats.no_available_variants + stats.strict_skips + stats.in_cart}</span>
         <span>Due already in cart: {stats.in_cart}</span>

@@ -10,6 +10,7 @@ import BotWindow from "./layout/BotWindow";
 
 export const AppContext = createContext();
 
+// Contains the default values for the store
 export const storeConfig = {
   eventId: null,
   users: [],
@@ -23,6 +24,7 @@ export const storeConfig = {
   darkMode: false,
 };
 
+// Contains the default values for the temporary store
 export const temporaryStoreConfig = {
   botStatus: "stopped",
   bearerToken: null,
@@ -43,6 +45,15 @@ export const temporaryStoreConfig = {
   }
 };
 
+const styles = {
+  display: "flex",
+  flexDirection: "column",
+  marginInline: "auto",
+  padding: "0 1rem",
+  maxWidth: "1240px",
+  height: "100%"
+};
+
 function App() {
   const [store, setStore] = useStickyState(storeConfig, "appStore");
   const [temporaryStore, setTemporaryStore] = useState(temporaryStoreConfig);
@@ -55,6 +66,7 @@ function App() {
     }
   }
 
+  // Handle dark mode
   const body = document.getElementsByTagName("body")[0];
   if (store.darkMode) {
     body.style.backgroundColor = "#252a31";
@@ -64,13 +76,11 @@ function App() {
 
   return (
     <AppContext.Provider value={{ store, setStore, temporaryStore, setTemporaryStore }}>
-      <div style={{ backroundColor: store.darkMode ? "#252a31" : "#ffffff" }}>
-        <div className={store.darkMode ? "bp4-dark" : "bp4"} style={{ marginInline: "40px" }}>
-          <Header />
-          {(temporaryStore.bearerToken == null || temporaryStore.showLogin) && <UserWindow />}
-          {temporaryStore.bearerToken != null && store.eventId == null && <EventWindow />}
-          {temporaryStore.bearerToken != null && store.eventId != null && <BotWindow />}
-        </div>
+      <div className={store.darkMode ? "bp4-dark" : "bp4"} style={styles}>
+        <Header />
+        {(temporaryStore.bearerToken == null || temporaryStore.showLogin) && <UserWindow />}
+        {temporaryStore.bearerToken != null && store.eventId == null && <EventWindow />}
+        {temporaryStore.bearerToken != null && store.eventId != null && <BotWindow />}
       </div>
     </AppContext.Provider>
   );

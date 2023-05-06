@@ -12,7 +12,7 @@ import BootPanel from "../../components/BootPanel";
 import StatsPanel from "../../components/StatsPanel";
 
 const styles = {
-  height: "280px",
+  height: "100%",
   overflowY: "auto",
 };
 

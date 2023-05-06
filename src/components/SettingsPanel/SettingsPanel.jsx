@@ -28,6 +28,11 @@ const SettingsPanel = () => {
   return (
     <Card elevation={Elevation.TWO} className={styles.SettingsPanel}>
       <h3>Bot Settings</h3>
+      <p>
+        The default settings have been benchmarked and are considered the best in most cases. If you
+        change these settings, you should be able to reach over 75% rate when running the bot for more
+        than 5 minutes.
+      </p>
       <div className={styles.SettingsRow}>
         <span>Thread Count</span>
         <div className="bp4-input-group">

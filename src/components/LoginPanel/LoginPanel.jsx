@@ -103,6 +103,7 @@ const LoginPanel = ({ allowClose }) => {
           onChange={handleEmailChange}
           value={email}
           disabled={loading}
+          style={{ width: "240px" }}
         />
         <input
           className="bp4-input"
@@ -111,6 +112,7 @@ const LoginPanel = ({ allowClose }) => {
           onChange={handlePasswordChange}
           value={password}
           disabled={loading}
+          style={{ width: "240px" }}
         />
         {error && <span className={styles.ErrorLabel}>Error: {error}</span>}
         <div className={styles.ButtonGroup}>

@@ -9,6 +9,11 @@ import { AppContext } from "../../App";
 import AccountPanel from "../../components/AccountPanel";
 import LoginPanel from "../../components/LoginPanel";
 
+const styles = {
+  height: "100%",
+  overflowY: "auto",
+};
+
 const UserWindow = () => {
   const context = useContext(AppContext);
 
@@ -17,7 +22,7 @@ const UserWindow = () => {
   const showLogin = context.temporaryStore.showLogin;
 
   if (showLogin) return <LoginPanel allowClose={true} />;
-  return <section>{hasUsers && !isLoggedIn ? <AccountPanel /> : <LoginPanel />}</section>;
+  return <section style={styles}>{hasUsers && !isLoggedIn ? <AccountPanel /> : <LoginPanel />}</section>;
 };
 
 export default UserWindow;
