@@ -15,22 +15,22 @@ Check it out -> [Hosted Web Application](https://miikaok.github.io/electron-kide
 
 ## 👪 Community
 
-I am well aware that sharing this bot might cause some chaos, but in the warm spirit of a student, it is better that everyone can access it. This way, there will be no groups of people with closed source bot programs that will cause other people to not have their tickets.
+I am well aware that sharing this bot might cause some chaos, but in the warm spirit of a student, it is better that everyone has access to it. This way there will be no groups of people with closed source bot programs that cause other people not to have their tickets.
 
 ## 🛠️ API
 
-I am willing to update this bot regularly if it needs some upkeep at this point in time. Bugs will be fixed as soon as possible, but I am not sure if there will be further functional improvements to the bot.
+I am willing to update this bot regularly if it needs some maintenance at this point. Bugs will be fixed as soon as possible, but I am not sure if there will be further functional improvements to the bot.
 
-## 📚 Project stack
+## 📚 Project Stack
   - **Runtime:** Electron
   - **Language:** JavaScript
   - **Testing:** Coming soon...
 
-## 💬 Suggestions and bugs
+## 💬 Suggestions and Bugs
 
-Have a suggestion or a bug to report? [Click here to create a issue](https://github.com/miikaok/electron-kide-app-bot/issues)
+Do you have a suggestion or bug to report? [Click here to create an issue](https://github.com/miikaok/electron-kide-app-bot/issues)
 
-Have something else you'd like to discuss? [Send me a mail](mailto:miika.oja-kaukola@edu.turkuamk.fi?subject=[electron-kide-app-bot])
+Got something else you want to discuss? [Send me a mail](mailto:miika.oja-kaukola@edu.turkuamk.fi?subject=[electron-kide-app-bot])
 
 ## 🤝 Contributing
 
