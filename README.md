@@ -5,8 +5,6 @@
 
 [![CI/CD](https://github.com/miikaok/electron-kide-app-bot/actions/workflows/build-deploy.yml/badge.svg?branch=main)](https://github.com/miikaok/electron-kide-app-bot/actions/workflows/build-deploy.yml)
 
-[![Known Vulnerabilities](https://snyk.io/test/github/miikaok/electron-kide-app-bot/badge.svg)](https://snyk.io/test/github/miikaok/electron-kide-app-bot)
-  
 ### The Open Source NextGen Kide.app Ticket Bot.
 
 </div>
