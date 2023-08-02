@@ -1,9 +1,12 @@
 {
   "name": "electron-kide-app-bot",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "Steals event tickets from Kide.app",
   "author": "Miika Oja-Kaukola",
   "private": true,
+  "notes": {
+    "deprecated": "DEPRECATION WARNING: Support for Electron in this project has been discontinued and should be removed from your project at the earliest opportunity. Please transition to the WPA (Web Progressive App) version instead. Refer to the documentation for guidance on migrating to the WPA version, or contact support if you need assistance."
+  },
   "dependencies": {
     "@blueprintjs/core": "^4.18.0",
     "@electron/remote": "^2.0.9",

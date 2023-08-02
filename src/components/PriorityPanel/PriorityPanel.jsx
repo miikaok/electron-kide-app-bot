@@ -174,7 +174,8 @@ const PriorityPanel = () => {
         <Switch
           checked={context.store.autoStop}
           onChange={handleAutoStopChange}
-          label="Stop Bot When Successful Reservation (Experimental)"
+          disabled
+          label="Stop Bot When Successful Reservation (Need to be implemented.)"
         />
         <div className={styles.BuyCountContainer}>
           <h3>Ticket Buy Count</h3>

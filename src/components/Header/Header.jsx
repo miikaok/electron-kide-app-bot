@@ -43,7 +43,7 @@ const Header = () => {
       <div className={styles.Header}>
         <h2 className="bp4-heading">Kide.app | Ticket Bot</h2>
         <h6 className="bp4-heading">
-          NextGen Ticket Bot <span className={styles.Detail}>version 2.3</span>
+          NextGen Ticket Bot <span className={styles.Detail}>version 2.4</span>
         </h6>
       </div>
       <div className={styles.ControlsRight}>
