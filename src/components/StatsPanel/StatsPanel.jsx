@@ -16,6 +16,10 @@ const StatsPanel = () => {
 
   return (
     <div className={styles.StatsPanel}>
+      <p style={{ color: "orangered", maxWidth: "500px" }}>
+        <b>Notice: </b>If your requests are not going through, it may be due to an expired session.
+        Please re-login to resolve the issue. We are working on a fix.
+      </p>
       <h2>Session Stats</h2>
       <div className={styles.StatsContainer}>
         <span>
