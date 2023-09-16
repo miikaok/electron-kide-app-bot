@@ -108,7 +108,9 @@ const createProductVariantReservation = async ({
       cache: "no-cache", // Corrected header name
     },
     body: JSON.stringify({
-      toCancel: [],
+      expectCart: true,
+      includeDeliveryMethods: false,
+      toCancel: null,
       toCreate: [
         {
           inventoryId: inventoryId,
@@ -233,7 +235,11 @@ const handleMessage = ({
     if (response === null) return self.postMessage({ type: "request_error" });
 
     const event = response.model;
-    const availableVariants = event.variants.filter((variant) => variant.isProductVariantActive);
+
+    // Check if there are any available variants
+    const availableVariants = event.variants.filter((variant) => {
+      return new Date(variant.dateSalesFrom) < new Date() && variant.availability > 0;
+    });
 
     // If there are no matches, return
     if (availableVariants.length === 0) return self.postMessage({ type: "no_available_variants" });
