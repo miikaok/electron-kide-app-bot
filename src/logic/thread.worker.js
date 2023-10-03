@@ -108,14 +108,14 @@ const createProductVariantReservation = async ({
       cache: "no-cache", // Corrected header name
     },
     body: JSON.stringify({
-      expectCart: true,
+      expectCart: false,
       includeDeliveryMethods: false,
-      toCancel: null,
+      toCancel: [],
       toCreate: [
         {
           inventoryId: inventoryId,
           productVariantUserForm: null,
-          quantity: String(quantity),
+          quantity: parseInt(quantity),
         },
       ],
     }),
