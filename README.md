@@ -11,6 +11,8 @@
 
 The NextGen Kide.app Ticket Bot is a PWA (Progressive Web Application) that allows users to automate the ticket-buying experience by using efficient algorithms. This bot offers many different options to make sure you get the ticket you need. Unlike many other bots of its kind, this bot uses web workers as a way to make the buying process even faster, and this way the main thread does not get blocked by a delayed response.
 
+*NOTE! The bot is currently not working because kide.app has implemented request validation logic.*
+
 Check it out -> [Hosted Web Application](https://miikaok.github.io/electron-kide-app-bot/)
 
 ## 👪 Community
