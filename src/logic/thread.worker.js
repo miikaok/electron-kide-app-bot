@@ -103,19 +103,23 @@ const createProductVariantReservation = async ({
   const response = await fetch("https://api.kide.app/api/reservations", {
     method: "POST",
     headers: {
+      ":authority": "api.kide.app",
+      ":method": "POST",
+      ":path": "/api/reservations",
+      ":scheme": "https",
       "Content-Type": "application/json",
       Authorization: `Bearer ${bearerToken}`,
       cache: "no-cache", // Corrected header name
     },
     body: JSON.stringify({
-      expectCart: false,
+      expectCart: true,
       includeDeliveryMethods: false,
       toCancel: [],
       toCreate: [
         {
           inventoryId: inventoryId,
-          productVariantUserForm: null,
           quantity: parseInt(quantity),
+          productVariantUserForm: null,
         },
       ],
     }),
