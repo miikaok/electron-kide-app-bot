@@ -102,11 +102,6 @@ const PriorityPanel = () => {
     context.setStore((store) => ({ ...store, strictPriority: value }));
   };
 
-  const handleAutoStopChange = (e) => {
-    const value = e.target.checked;
-    context.setStore((store) => ({ ...store, autoStop: value }));
-  };
-
   const handleUseCountChange = (e) => {
     const value = e.target.checked;
     context.setStore((store) => ({ ...store, useCustomCount: value }));
@@ -171,12 +166,6 @@ const PriorityPanel = () => {
             label="Skip Other Than Priority Tickets"
           />
         )}
-        <Switch
-          checked={context.store.autoStop}
-          onChange={handleAutoStopChange}
-          disabled
-          label="Stop Bot When Successful Reservation (Need to be implemented.)"
-        />
         <div className={styles.BuyCountContainer}>
           <h3>Ticket Buy Count</h3>
           <span>

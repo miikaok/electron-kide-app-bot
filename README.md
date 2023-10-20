@@ -1,4 +1,3 @@
-
 <div align = "center">
 
 ![Kide.app Logo](https://play-lh.googleusercontent.com/f_CZ_ZEoAH38iz8WozWC3HkElLPaS3G-0jcDi0NktnsJOklduGpueIwnCjS08aiZeGQ=w240-h480-rw)
@@ -11,8 +10,6 @@
 
 The NextGen Kide.app Ticket Bot is a PWA (Progressive Web Application) that allows users to automate the ticket-buying experience by using efficient algorithms. This bot offers many different options to make sure you get the ticket you need. Unlike many other bots of its kind, this bot uses web workers as a way to make the buying process even faster, and this way the main thread does not get blocked by a delayed response.
 
-*NOTE! The bot is currently not working because kide.app has implemented request validation logic.*
-
 Check it out -> [Hosted Web Application](https://miikaok.github.io/electron-kide-app-bot/)
 
 ## 👪 Community
@@ -24,9 +21,10 @@ I am well aware that sharing this bot might cause some chaos, but in the warm sp
 I am willing to update this bot regularly if it needs some maintenance at this point. Bugs will be fixed as soon as possible, but I am not sure if there will be further functional improvements to the bot.
 
 ## 📚 Project Stack
-  - **Runtime:** Electron
-  - **Language:** JavaScript
-  - **Testing:** Coming soon...
+
+- **Runtime:** Electron
+- **Language:** JavaScript
+- **Testing:** Coming soon...
 
 ## 💬 Suggestions and Bugs
 

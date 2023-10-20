@@ -41,6 +41,42 @@ const getEventInformation = async (eventID, requestTimeout = 5000) => {
 };
 
 /**
+ * Calculates an encoded ID based on the given inventory ID and a constant EXTRA_ID.
+ * The function performs bitwise XOR operation between the ASCII codes of each character in the stripped inventory ID and EXTRA_ID.
+ * The result is then base64 encoded and truncated to 10 characters.
+ * 
+ * @param {string} inventoryId The original inventory ID, which may contain hyphens.
+ * @returns {string} Returns a base64 encoded, truncated string derived from bitwise XOR operation.
+ * @throws {Error} Throws an error if the inventoryId is not a string or if it's empty.
+ * @example
+ * const xRequestedId = calculateXRequestedId('1234-5678');
+ * console.log(xRequestedId); // Output: "encodedString"
+ * @credits Special acknowledgment to Aleksi Virkkala for providing an open-source solution that contributed to this function. For more details, visit [Aleksi Virkkala's GitHub Profile](https://github.com/AleksiVirkkala).
+*/
+const calculateXRequestedId = (inventoryId) => {
+  if (typeof inventoryId !== "string" || inventoryId.length === 0) {
+    throw new Error("Invalid inventoryId. Must be a non-empty string.");
+  }
+
+  const strippedId = inventoryId.replace(/-/g, "");
+  const EXTRA_ID = "2ad64e4b26c84fbabba58181de76f7b0";
+
+  if (strippedId.length !== EXTRA_ID.length) {
+    throw new Error("Length of strippedId and EXTRA_ID must be the same.");
+  }
+
+  let encodedString = "";
+
+  for (let i = 0; i < strippedId.length; i++) {
+    const xorResult = strippedId.charCodeAt(i) ^ EXTRA_ID.charCodeAt(i);
+    encodedString += String.fromCharCode(xorResult);
+  }
+
+  return btoa(encodedString).substring(0, 10);
+};
+
+
+/**
  * Gets the current user's reservation data (shopping cart) from the Kide API
  * @param {string} bearerToken Bearer token used to authenticate the request
  * @param {number} requestTimeout Timeout for the request in milliseconds
@@ -103,23 +139,18 @@ const createProductVariantReservation = async ({
   const response = await fetch("https://api.kide.app/api/reservations", {
     method: "POST",
     headers: {
-      ":authority": "api.kide.app",
-      ":method": "POST",
-      ":path": "/api/reservations",
-      ":scheme": "https",
-      "Content-Type": "application/json",
+      "Content-Type": "application/json;charset=UTF-8",
+      "accept": "application/json, text/plain, */*",
+      "x-requested-id": calculateXRequestedId(inventoryId),
       Authorization: `Bearer ${bearerToken}`,
-      cache: "no-cache", // Corrected header name
     },
     body: JSON.stringify({
       expectCart: true,
-      includeDeliveryMethods: false,
-      toCancel: [],
+      toCancel: null,
       toCreate: [
         {
           inventoryId: inventoryId,
-          quantity: parseInt(quantity),
-          productVariantUserForm: null,
+          quantity: quantity,
         },
       ],
     }),
