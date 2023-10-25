@@ -6,62 +6,71 @@ import { Button } from "@blueprintjs/core";
 import { AppContext } from "../../App";
 
 const LoginPanel = ({ allowClose }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [jwt, setJwt] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const context = useContext(AppContext);
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+  /**
+   * Handles the JWT change
+   * @param {object} e
+   */
+  const handleJwtChange = (e) => {
+    const jwt = sanitizeJwt(e.target.value);
+    setJwt(jwt);
   };
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+  /**
+   * Sanitizes the JWT by removing the "Bearer " prefix and the quotes
+   * @param {string} jwt
+   * @returns
+   */
+  const sanitizeJwt = (jwt) => {
+    if (jwt == null) return "";
+    return jwt.replace("Bearer ", "").replace(/"/g, "");
   };
 
-  const handleLogin = async () => {
-    setError(null);
+  /**
+   * Verifies the JWT token using the kide.app API
+   * @param {string} jwt
+   * @returns {boolean} isValid
+   */
+  const verifyJwt = async (jwt) => {
+    // This endpoint is just used to verify the JWT
+    const url = "https://api.kide.app/api/authentication/user";
+
     setLoading(true);
 
-    const payload = {
-      client_id: "56d9cbe22a58432b97c287eadda040df",
-      grant_type: "password",
-      username: email,
-      password: password,
-      rememberMe: true,
-    };
-
-    const params = new URLSearchParams();
-    for (const key of Object.keys(payload)) {
-      params.append(key, payload[key]);
-    }
-    const queryString = params.toString();
-
     try {
-      const response = await axios.post("https://auth.kide.app/oauth2/token", queryString);
+      const response = await axios.get(url, {
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          Authorization: `Bearer ${jwt}`,
+        },
+      });
 
-      const token = response.data.access_token;
-
-      const now = new Date();
-      const expires = new Date(now.getTime() + parseInt(response.data.expires_in) * 1000);
-
-      if (!saveUser(email, token, expires)) {
-        setError("User already exists, please try again.");
+      if (response.status !== 200) {
+        setError("Request failed.");
+        return false;
       }
-      setLoading(false);
-      setPassword("");
 
-      if (allowClose) handleExit();
-    } catch (error) {
-      setError("Invalid credentials, please try again.");
+      return true;
+    } catch (e) {
+      if (e.response.status === 401) setError("Authentication failed. Invalid JWT token.");
+      return false;
+    } finally {
       setLoading(false);
-      setPassword("");
-      return;
     }
   };
 
+  /**
+   * Saves the user to the local storage
+   * @param {string} email
+   * @param {string} token
+   * @param {datetime} expires
+   * @returns {boolean} success
+   */
   const saveUser = (email, token, expires) => {
     if (context.store.users == null) {
       context.setStore((store) => ({ ...store, users: [{ email, token, expires }] }));
@@ -77,6 +86,69 @@ const LoginPanel = ({ allowClose }) => {
     return true;
   };
 
+  /**
+   * Parses the JWT token and returns the payload
+   * @param {string} token
+   * @returns {object} payload
+   */
+  const parseJwt = (token) => {
+    try {
+      const base64Url = token.split(".")[1];
+      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split("")
+          .map((c) => {
+            return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+          })
+          .join("")
+      );
+
+      return JSON.parse(jsonPayload);
+    } catch (e) {
+      setError("Failed to parse token. Invalid JWT token");
+      return null;
+    }
+  };
+
+  /**
+   * Check if user exists in the local storage based on the email
+   * @param {string} email
+   * @returns
+   */
+  const checkIfUserExists = (email) => {
+    if (context.store.users == null) return false;
+    return context.store.users.find((user) => user.email === email) != null;
+  };
+
+  /**
+   * Uses the JWT token to add a new user to the local storage
+   * @param {string} jwt
+   * @returns {boolean} success
+   */
+  const addNewUser = async (jwt) => {
+    const isValidJwt = await verifyJwt(jwt);
+    if (!isValidJwt) return false;
+
+    const payload = parseJwt(jwt);
+    if (payload == null) return false;
+
+    const email = payload?.sub;
+    const expires = new Date(payload?.exp * 1000);
+
+    if (email == null) return false;
+
+    if (checkIfUserExists(email)) {
+      setError("User already exists.");
+      return false;
+    }
+
+    saveUser(email, jwt, expires);
+  };
+
+  /**
+   * Handles the behavior when the user clicks the cancel button
+   */
   const handleExit = () => {
     context.setTemporaryStore((store) => ({
       ...store,
@@ -84,13 +156,12 @@ const LoginPanel = ({ allowClose }) => {
     }));
   };
 
-  const allowLogin = email.length > 0 && password.length > 0;
+  const allowLogin = jwt?.length > 0 || false;
 
   return (
     <div className={styles.LoginPanelContainer}>
       <div className={styles.LoginHeader}>
         <h3 className="bp4-heading">User Login</h3>
-        <label className="bp4-text-small">Please login to your kide.app user to continue.</label>
         <label className="bp4-text-small">
           Your login information is only forwarded to kide.app and not stored anywhere.
         </label>
@@ -99,18 +170,9 @@ const LoginPanel = ({ allowClose }) => {
         <input
           className="bp4-input"
           type="text"
-          placeholder="Email"
-          onChange={handleEmailChange}
-          value={email}
-          disabled={loading}
-          style={{ width: "240px" }}
-        />
-        <input
-          className="bp4-input"
-          type="password"
-          placeholder="Password"
-          onChange={handlePasswordChange}
-          value={password}
+          placeholder="JWT Token"
+          onChange={handleJwtChange}
+          value={jwt}
           disabled={loading}
           style={{ width: "240px" }}
         />
@@ -127,13 +189,21 @@ const LoginPanel = ({ allowClose }) => {
           )}
           <Button
             icon="lock"
-            text="Login"
+            text="Authenticate"
             loading={loading}
             disabled={!allowLogin}
-            onClick={handleLogin}
+            onClick={() => addNewUser(jwt)}
           />
         </div>
       </div>
+      <a
+        href="https://developer.oftrust.net/guides/get-bearer-token/#how-to-get-bearer-token"
+        target="_blank"
+        className={styles.TutorialLink}
+        rel="noreferrer"
+      >
+        How to get your JWT token?
+      </a>
     </div>
   );
 };

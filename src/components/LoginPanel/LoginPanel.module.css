@@ -38,3 +38,9 @@
   flex-direction: row;
   gap: 10px;
 }
+
+.TutorialLink {
+  margin-top: 15px;
+  color: white !important;
+  text-decoration: underline;
+}
